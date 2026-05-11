@@ -18,7 +18,6 @@
     --sand: #F4D58D;
     --mint: #62B6CB;
     --tropical: #16A085;
-    --tropical-soft: #1ABC9C;
     --green: #22C55E;
     --red: #EF4444;
     --line: #E5E7EB;
@@ -48,9 +47,14 @@
   .hero .kicker { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; margin-bottom: 8px; text-align: center; }
   .hero h1 { font-size: 28px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; text-align: center; }
   .hero p { font-size: 15px; opacity: 0.92; max-width: 580px; margin: 0 auto 18px; text-align: center; }
-  .ruta-map { background: rgba(255,255,255,0.13); border-radius: 14px; padding: 14px 16px; font-size: 13px; text-align: center; }
-  .ruta-map .arrow { opacity: 0.6; margin: 0 4px; }
-  .ruta-map .highlight { background: rgba(255,140,97,0.85); color: white; padding: 2px 8px; border-radius: 6px; font-weight: 700; }
+  .routes { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+  @media (min-width: 600px) { .routes { grid-template-columns: 1fr 1fr; } }
+  .route-card { background: rgba(255,255,255,0.13); border-radius: 14px; padding: 14px 16px; font-size: 13px; }
+  .route-card .name { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; margin-bottom: 6px; }
+  .route-card .path { font-size: 14px; line-height: 1.5; }
+  .route-card .arrow { opacity: 0.6; margin: 0 4px; }
+  .route-card .highlight { background: rgba(255,140,97,0.85); color: white; padding: 2px 8px; border-radius: 6px; font-weight: 700; }
+  .route-card .highlight.tropical { background: rgba(22,160,133,0.9); }
 
   .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px; }
   .filters .group { display: flex; gap: 6px; background: white; padding: 4px; border-radius: 14px; box-shadow: var(--shadow); border: 1px solid var(--line); flex-wrap: wrap; }
@@ -64,13 +68,38 @@
 
   .zone-header { background: white; border-radius: 14px; padding: 16px 20px; margin-bottom: 18px; border-left: 6px solid var(--tropical); box-shadow: var(--shadow); }
   .zone-header.almeria { border-left-color: var(--coral); }
+  .zone-header.norte { border-left-color: var(--ocean); }
   .zone-header h3 { font-size: 18px; font-weight: 800; color: var(--ocean); margin-bottom: 4px; }
   .zone-header p { font-size: 13px; color: var(--text-soft); }
+
+  .route-section {
+    background: white; border-radius: 18px; padding: 20px;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+    margin-bottom: 26px;
+  }
+  .route-section.baqueira { border-top: 5px solid var(--ocean); }
+  .route-section.marbella { border-top: 5px solid var(--coral); }
+  .route-section .route-title { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .route-section .route-title h2 { margin-bottom: 0; }
+  .route-section .badge {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+    padding: 4px 10px; border-radius: 8px; text-transform: uppercase;
+  }
+  .badge.baq { background: var(--ocean); color: white; }
+  .badge.mar { background: var(--coral); color: white; }
+  .route-section .intro { font-size: 14px; color: var(--text-soft); margin-bottom: 18px; }
 
   .resumen-table { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
   .resumen-row { display: grid; grid-template-columns: 1fr auto auto auto; gap: 12px; padding: 14px 16px; align-items: center; border-bottom: 1px solid var(--line); }
   .resumen-row:last-child { border-bottom: none; }
   .resumen-row.head { background: var(--highlight-bg); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-soft); font-weight: 700; }
+  .resumen-row.group-header {
+    background: var(--ocean); color: white;
+    font-size: 12px; font-weight: 800; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 8px 16px;
+    grid-template-columns: 1fr;
+  }
+  .resumen-row.group-header.marbella { background: var(--coral); }
   .resumen-row.recomendado { background: linear-gradient(90deg, #FFF4ED 0%, white 60%); border-left: 4px solid var(--coral); padding-left: 12px; }
   .resumen-row .name { font-weight: 700; font-size: 14px; }
   .resumen-row .meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
@@ -95,6 +124,7 @@
   .card-photo .ruta-pill { position: absolute; top: 14px; right: 14px; background: rgba(255,255,255,0.95); color: var(--ocean); font-size: 10px; font-weight: 800; letter-spacing: 0.1em; padding: 5px 12px; border-radius: 10px; }
   .card-photo .ruta-pill.tropical { color: var(--tropical); }
   .card-photo .ruta-pill.almeria { color: #B85C3D; }
+  .card-photo .ruta-pill.norte { color: var(--ocean); }
   .card-photo .photo-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 18px; color: white; z-index: 1; }
   .card-photo h3 { font-size: 20px; font-weight: 800; line-height: 1.2; margin-bottom: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
   .card-photo .stars-loc { font-size: 13px; opacity: 0.95; text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
@@ -177,7 +207,7 @@
     .hero { padding: 28px 18px 32px; border-radius: 16px; }
     .hero h1 { font-size: 24px; }
     .resumen-row { grid-template-columns: 1fr auto auto; }
-    .resumen-row .price-4n { display: none; }
+    .resumen-row .price-secondary { display: none; }
   }
 </style>
 </head>
@@ -186,45 +216,185 @@
 
   <header class="hero">
     <div class="kicker">Vacaciones agosto 2026 · Para Annita</div>
-    <h1>Hotel familia — parada entre Marbella y Madrid</h1>
-    <p>8 opciones con Kids Club, fotos y reseñas reales. Análisis honesto para que decidas con calma.</p>
-    <div class="ruta-map">
-      <strong>Ruta:</strong> Madrid <span class="arrow">→</span> <strong>Marbella</strong> (15 ago) <span class="arrow">→</span> <span class="highlight">Hotel parada (3-4 N, semana 4)</span> <span class="arrow">→</span> Madrid
+    <h1>Hotel familia — dos rutas posibles</h1>
+    <p>Dos planes alternativos. 11 hoteles con fotos, reseñas reales y análisis honesto. Decide ruta y hotel.</p>
+    <div class="routes">
+      <div class="route-card">
+        <div class="name">🏔 RUTA A — Baqueira</div>
+        <div class="path">Oliva <span class="arrow">→</span> <span class="highlight">Hotel parada (5N)</span> <span class="arrow">→</span> Baqueira</div>
+      </div>
+      <div class="route-card">
+        <div class="name">🏖 RUTA B — Marbella → Madrid</div>
+        <div class="path">Marbella (15 ago) <span class="arrow">→</span> <span class="highlight tropical">Hotel parada (3-4N, sem 4)</span> <span class="arrow">→</span> Madrid</div>
+      </div>
     </div>
   </header>
 
   <div class="filters">
     <div class="group">
-      <span class="label">Zona</span>
-      <button class="active" data-filter="zona" data-value="all">Todas</button>
-      <button data-filter="zona" data-value="tropical">Costa Tropical (1h)</button>
-      <button data-filter="zona" data-value="almeria">Almería (3-4h)</button>
+      <span class="label">Ruta</span>
+      <button class="active" data-filter="ruta" data-value="all">Todas</button>
+      <button data-filter="ruta" data-value="norte">🏔 A Baqueira</button>
+      <button data-filter="ruta" data-value="marbella">🏖 Marbella→Madrid</button>
     </div>
   </div>
 
   <section>
     <h2>Resumen <span class="sub">4 personas · rating Booking</span></h2>
     <div class="resumen-table">
-      <div class="resumen-row head"><div>Hotel</div><div>3N</div><div class="price-4n">4N</div><div>Rating</div></div>
-      <div class="resumen-row recomendado"><div><div class="name">Best Alcázar ★</div><div class="meta">La Herradura · Costa Tropical · 4★ TI</div></div><div class="price">1.150-1.450€<small>3N TI</small></div><div class="price price-4n">1.500-1.850€<small>4N TI</small></div><div class="rating-cell">8.0<small>~3.500</small></div></div>
-      <div class="resumen-row recomendado"><div><div class="name">Bahía Tropical ★</div><div class="meta">El Pozuelo · Costa Tropical · 4★ TI · TOP rated 8.6</div></div><div class="price">1.100-1.400€<small>3N TI</small></div><div class="price price-4n">1.450-1.850€<small>4N TI</small></div><div class="rating-cell">8.6<small>4.121</small></div></div>
-      <div class="resumen-row recomendado"><div><div class="name">Servigroup Marina Playa ★</div><div class="meta">Mojácar · Almería · 4★ TI · TOP global 8.8</div></div><div class="price">1.300-1.550€<small>3N TI</small></div><div class="price price-4n">1.600-1.950€<small>4N TI</small></div><div class="rating-cell">8.8<small>1.152</small></div></div>
-      <div class="resumen-row"><div><div class="name">Ibersol Almuñécar Beach &amp; Spa</div><div class="meta">Almuñécar centro · Costa Tropical · TI Premium</div></div><div class="price">1.250-1.550€<small>3N TI</small></div><div class="price price-4n">1.600-1.950€<small>4N TI</small></div><div class="rating-cell">8.2<small>~2.800</small></div></div>
-      <div class="resumen-row"><div><div class="name">Mediterranean Bay <span style="font-size:10px;color:var(--text-soft);">referencia</span></div><div class="meta">Roquetas · Almería · 4★ TI Plus</div></div><div class="price">1.450-1.700€<small>3N</small></div><div class="price price-4n">1.700-2.000€<small>NRF -25%</small></div><div class="rating-cell">8.0<small>1.395</small></div></div>
-      <div class="resumen-row"><div><div class="name">Playasol Aquapark</div><div class="meta">Roquetas · Almería · 4★ TI · Toboganes</div></div><div class="price">1.200-1.500€<small>3N</small></div><div class="price price-4n">1.500-1.700€<small>NRF -35%</small></div><div class="rating-cell rating-low">7.6<small>481</small></div></div>
-      <div class="resumen-row"><div><div class="name">Best Mojácar ⚠</div><div class="meta">Mojácar · Almería · 4★ TI · En reforma</div></div><div class="price">1.250-1.500€<small>3N</small></div><div class="price price-4n">1.500-1.800€<small>4N</small></div><div class="rating-cell">8.1<small>172</small></div></div>
-      <div class="resumen-row"><div><div class="name">Playacálida Spa Luxury ⚠</div><div class="meta">Almuñécar · Costa Tropical · 4★ Sup · Premium</div></div><div class="price">1.700-2.200€<small>3N</small></div><div class="price price-4n">2.200-2.800€<small>4N</small></div><div class="rating-cell">8.4<small>~3.200</small></div></div>
+
+      <div class="resumen-row group-header">🏔 RUTA A — A Baqueira · 5 noches</div>
+      <div class="resumen-row head"><div>Hotel</div><div>5N</div><div class="price-secondary">€/n</div><div>Rating</div></div>
+      <div class="resumen-row recomendado"><div><div class="name">Magic Sports ★</div><div class="meta">Oropesa · 4★ TI · Niño 4a GRATIS antes 25 jul</div></div><div class="price">2.376€<small>5N TI</small></div><div class="price price-secondary">~475€<small>/n</small></div><div class="rating-cell">8.0<small>335</small></div></div>
+      <div class="resumen-row recomendado"><div><div class="name">Gran Hotel Peñíscola ★</div><div class="meta">Peñíscola · 4★ PC · 2h15 de Oliva</div></div><div class="price">1.619€<small>5N PC</small></div><div class="price price-secondary">~324€<small>/n</small></div><div class="rating-cell">8.1<small>4.603</small></div></div>
+      <div class="resumen-row"><div><div class="name">Hotel Jaime I</div><div class="meta">Salou · 3★ TI · Cerca PortAventura</div></div><div class="price">2.177€<small>5N TI</small></div><div class="price price-secondary">~435€<small>/n</small></div><div class="rating-cell rating-low">7.6<small>9.094</small></div></div>
+
+      <div class="resumen-row group-header marbella">🏖 RUTA B — Marbella → Madrid · 3-4 noches</div>
+      <div class="resumen-row head"><div>Hotel</div><div>3N</div><div class="price-secondary">4N</div><div>Rating</div></div>
+      <div class="resumen-row recomendado"><div><div class="name">Best Alcázar ★</div><div class="meta">La Herradura · Costa Tropical · 4★ TI</div></div><div class="price">1.150-1.450€<small>3N TI</small></div><div class="price price-secondary">1.500-1.850€<small>4N TI</small></div><div class="rating-cell">8.0<small>~3.500</small></div></div>
+      <div class="resumen-row recomendado"><div><div class="name">Bahía Tropical ★</div><div class="meta">El Pozuelo · Costa Tropical · 4★ TI · TOP 8.6</div></div><div class="price">1.100-1.400€<small>3N TI</small></div><div class="price price-secondary">1.450-1.850€<small>4N TI</small></div><div class="rating-cell">8.6<small>4.121</small></div></div>
+      <div class="resumen-row recomendado"><div><div class="name">Servigroup Marina Playa ★</div><div class="meta">Mojácar · Almería · 4★ TI · TOP 8.8</div></div><div class="price">1.300-1.550€<small>3N TI</small></div><div class="price price-secondary">1.600-1.950€<small>4N TI</small></div><div class="rating-cell">8.8<small>1.152</small></div></div>
+      <div class="resumen-row"><div><div class="name">Ibersol Almuñécar Beach &amp; Spa</div><div class="meta">Almuñécar · Costa Tropical · TI Premium</div></div><div class="price">1.250-1.550€<small>3N</small></div><div class="price price-secondary">1.600-1.950€<small>4N</small></div><div class="rating-cell">8.2<small>~2.800</small></div></div>
+      <div class="resumen-row"><div><div class="name">Mediterranean Bay <span style="font-size:10px;color:var(--text-soft);">referencia</span></div><div class="meta">Roquetas · Almería · 4★ TI Plus</div></div><div class="price">1.450-1.700€<small>3N</small></div><div class="price price-secondary">1.700-2.000€<small>NRF -25%</small></div><div class="rating-cell">8.0<small>1.395</small></div></div>
+      <div class="resumen-row"><div><div class="name">Playasol Aquapark</div><div class="meta">Roquetas · Almería · 4★ TI · Toboganes</div></div><div class="price">1.200-1.500€<small>3N</small></div><div class="price price-secondary">1.500-1.700€<small>NRF -35%</small></div><div class="rating-cell rating-low">7.6<small>481</small></div></div>
+      <div class="resumen-row"><div><div class="name">Best Mojácar ⚠</div><div class="meta">Mojácar · Almería · 4★ TI · En reforma</div></div><div class="price">1.250-1.500€<small>3N</small></div><div class="price price-secondary">1.500-1.800€<small>4N</small></div><div class="rating-cell">8.1<small>172</small></div></div>
+      <div class="resumen-row"><div><div class="name">Playacálida Spa Luxury ⚠</div><div class="meta">Almuñécar · Costa Tropical · Premium</div></div><div class="price">1.700-2.200€<small>3N</small></div><div class="price price-secondary">2.200-2.800€<small>4N</small></div><div class="rating-cell">8.4<small>~3.200</small></div></div>
+
     </div>
   </section>
 
-  <section>
+  <!-- ROUTE A: BAQUEIRA -->
+  <div class="route-section baqueira">
+    <div class="route-title"><span class="badge baq">🏔 Ruta A</span><h2>Hotel parada hacia Baqueira</h2></div>
+    <p class="intro">Saliendo de Oliva con destino Pirineo. Estancia 5 noches firme. Presupuesto orientativo 2.000-2.500€ TI 4 pax. Hoteles en Castellón/Tarragona (AP-7).</p>
+
+    <div class="cards">
+
+      <article class="card recomendado" data-ruta="norte">
+        <span class="recomendado-badge">★ TOP fit ruta</span>
+        <div class="card-photo" style="background-image: url('img/magic-sports-sm.jpg');">
+          <div class="ruta-pill norte">🏔 BAQUEIRA</div>
+          <div class="photo-overlay"><h3>Magic Sports</h3><div class="stars-loc">★★★★ Todo Incluido · Oropesa (Castellón)</div></div>
+        </div>
+        <div class="highlight-strip">ÚNICA 4★ TI EN RUTA NORTE · NIÑO 4a GRATIS</div>
+        <div class="card-body">
+          <div class="rating-block"><div class="rating-score">8.0</div><div class="rating-meta"><div class="reviews">335 Booking · 722 Tripadvisor (#1 Oropesa)</div><div>Funciona en agosto pico. Polarizado: brillante en jul-ago, demoledor fuera.</div></div></div>
+          <div class="row-meta"><span class="pill good">Niño 4a GRATIS (María) antes 25 jul</span><span class="pill good">Parque acuático + simuladores F1</span><span class="pill">2h30 de Oliva</span></div>
+          <div class="price-block">
+            <div class="price-cell"><div class="label">5 noches TI</div><div class="value">2.376€</div><div class="nrf">María (4) gratis · ahorro ~400€</div></div>
+            <div class="price-cell"><div class="label">Corte óptimo</div><div class="value" style="font-size:13px;">Mínima ruta Oliva-Baqueira</div></div>
+          </div>
+          <div class="analysis"><strong>Análisis honesto:</strong> hotel temático deportivo dentro del macro-resort Magic World (antigua Marina d'Or), abierto verano 2024. Familias españolas con niños 5-12 años. Ambiente resort masivo con check-in lento en pico y <strong>reservas obligatorias por APP</strong> para shows nocturnos. Funciona bien en julio/agosto pero fuera de temporada los reviews son demoledores. Destaca el parque acuático + <strong>simuladores F1/MotoGP</strong>. Frustración: marketing > realidad fuera de pico.</div>
+          <div class="reviews-block">
+            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"We had such a brilliant time! Check-in was super easy. The kids loved the surf machine and the slides, the weather was gorgeous all week long."</div><div class="author">— Mrs Grant, Edimburgo · oct 2025</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Almost every facility promoted online was closed. Both pools were closed. The waterparks, kids' club... all unavailable."</div><div class="author">— Vacation493912, TripAdvisor · nov 2025 (fuera pico)</div></div>
+          </div>
+          <div class="audience-block">
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familias en jul-ago que aceptan resort tipo Benidorm + niños 5-12</div>
+            <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Buscas tranquilidad o viajas fuera de pico</div>
+          </div>
+          <div class="info-grid">
+            <div class="info-cell"><div class="label">Habitación</div><div class="value">Temática hasta 4 pax (F1, fútbol, baloncesto)</div></div>
+            <div class="info-cell"><div class="label">Kids</div><div class="value">Mini club, parque acuático, simuladores F1/MotoGP, surf indoor</div></div>
+            <div class="info-cell"><div class="label">Parking</div><div class="value">Gratuito en resort</div></div>
+            <div class="info-cell"><div class="label">Mascotas</div><div class="value">Admite (confirmar)</div></div>
+          </div>
+          <div class="actions">
+            <a class="btn-primary" href="https://magicworld.es/hotel-magic-sports/" target="_blank">Web hotel</a>
+            <a class="btn-secondary" href="https://www.booking.com/hotel/es/gran-duque.es.html" target="_blank">Booking</a>
+            <a class="btn-tel" href="tel:+34964311004">Llamar</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card recomendado" data-ruta="norte">
+        <span class="recomendado-badge">★ Mejor precio</span>
+        <div class="card-photo" style="background-image: url('img/gran-peniscola-sm.jpg');">
+          <div class="ruta-pill norte">🏔 BAQUEIRA</div>
+          <div class="photo-overlay"><h3>Gran Hotel Peñíscola</h3><div class="stars-loc">★★★★ Pensión Completa · Peñíscola (Castellón)</div></div>
+        </div>
+        <div class="highlight-strip">MEJOR PRECIO ABSOLUTO · 2h15 DE OLIVA</div>
+        <div class="card-body">
+          <div class="rating-block"><div class="rating-score">8.1</div><div class="rating-meta"><div class="reviews">4.603 reseñas Booking (alto volumen)</div><div>Personal 8.9, ubicación 8.6. Certificado Children Friendly Excellence — animación real.</div></div></div>
+          <div class="row-meta"><span class="pill good">1ª línea Playa Norte</span><span class="pill good">Children Friendly Excellence</span><span class="pill warn">"Niños gratis": solo 2º en agosto</span><span class="pill">2h15 de Oliva</span></div>
+          <div class="price-block">
+            <div class="price-cell"><div class="label">5 noches PC</div><div class="value">1.619€</div><div class="nrf">NRF -7% · 2º niño gratis</div></div>
+            <div class="price-cell"><div class="label">Aviso</div><div class="value" style="font-size: 13px; color: var(--warning);">PC ≠ TI · sin bebidas libres</div></div>
+          </div>
+          <div class="analysis"><strong>Análisis honesto:</strong> 4★ familiar en 1ª línea de Peñíscola, cliente español/europeo de clase media que <strong>repite cada verano</strong>. Animación diurna, Funny-Club, buffet con rincón infantil y purés para bebés, control alérgenos. Destaca que <strong>el certificado Children Friendly Excellence no es marketing</strong> — funciona de mayo a octubre y el personal recibe críticas excelentes (8.9). <strong>OJO: la promesa "niños gratis" es engañosa en agosto</strong> — del 19-jun al 29-ago el 1er niño paga 50%, solo el 2º gratis. Para nosotras (2 niñas) María iría gratis, Claudia paga el 50%.</div>
+          <div class="reviews-block">
+            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Everything was great. Good location near the beautiful beach, safe parking places, for the price we had also good breakfast."</div><div class="author">— Ubavka, Alemania · oct 2025 · familia 9.0</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"People were smoking everywhere, room was not what was shown in the pictures, amenities and use of facilities have an extra cost."</div><div class="author">— De, España · ene 2026 · familia 7.0</div></div>
+          </div>
+          <div class="audience-block">
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familias que quieren niños entretenidos sin moverse del hotel + ruta corta</div>
+            <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Esperas ambiente boutique · necesitas TI completo</div>
+          </div>
+          <div class="info-grid">
+            <div class="info-cell"><div class="label">Habitación</div><div class="value">Configuración familiar muy flexible</div></div>
+            <div class="info-cell"><div class="label">Kids</div><div class="value">Funny Club + mini disco + purés bebés + spa niños</div></div>
+            <div class="info-cell"><div class="label">Parking</div><div class="value">Propio ~12€/día · cargadores VE</div></div>
+            <div class="info-cell"><div class="label">Castillo Papa Luna</div><div class="value">15min andando</div></div>
+          </div>
+          <div class="actions">
+            <a class="btn-primary" href="https://www.granhotelpeniscola.com/" target="_blank">Web hotel</a>
+            <a class="btn-secondary" href="https://www.booking.com/hotel/es/gran-peniscola.es.html" target="_blank">Booking</a>
+            <a class="btn-tel" href="tel:+34964480800">Llamar</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-ruta="norte">
+        <div class="card-photo" style="background-image: url('img/jaime-i-sm.jpg');">
+          <div class="ruta-pill norte">🏔 BAQUEIRA</div>
+          <div class="photo-overlay"><h3>Hotel Jaime I</h3><div class="stars-loc">★★★ Todo Incluido · Salou (Tarragona)</div></div>
+        </div>
+        <div class="highlight-strip">CERCA PORTAVENTURA · CANCELACIÓN FLEXIBLE</div>
+        <div class="card-body">
+          <div class="rating-block"><div class="rating-score warn">7.6</div><div class="rating-meta"><div class="reviews">9.094 reseñas Booking (volumen masivo)</div><div>El caballo de batalla de Salou. Buena para PortAventura + playa.</div></div></div>
+          <div class="row-meta"><span class="pill good">Splash park</span><span class="pill good">Cancela gratis hasta 21 ago</span><span class="pill">PortAventura cerca</span><span class="pill warn">3h45 de Oliva</span></div>
+          <div class="price-block">
+            <div class="price-cell"><div class="label">5 noches TI</div><div class="value">2.177€</div></div>
+            <div class="price-cell"><div class="label">Cancela</div><div class="value" style="font-size: 13px; color: var(--green);">Gratis hasta 21 ago</div></div>
+          </div>
+          <div class="analysis"><strong>Análisis honesto:</strong> el caballo de batalla 4★ (3★ Booking) de Salou para familias españolas con niños 4-12 que combinan <strong>playa + PortAventura</strong>. Gran volumen (87 hab × 9000+ reviews), rotación masiva en verano. Destaca el splash park infantil con toboganes (niños 1.25m+), animación valorada como excelente y ubicación céntrica a 400-600m de Playa Llevant. Frustración común: <strong>buffet monótono en estancias largas</strong>, colas en hora punta, ascensores lentos.</div>
+          <div class="reviews-block">
+            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"La zona de piscinas y toboganes es perfecta si se viaja con niños. Comida buena, instalaciones renovadas, animación excelente."</div><div class="author">— Reseña agregada · 2025</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Buffet repetitivo con colas en horas pico, ruido en temporada alta, ascensores lentos. La comida puede resultar monótona en estancias largas."</div><div class="author">— Síntesis Booking/TripAdvisor · 2025</div></div>
+          </div>
+          <div class="audience-block">
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familias que quieren PortAventura + playa con presupuesto contenido</div>
+            <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Buscas tranquilidad o estancia &gt;7 noches</div>
+          </div>
+          <div class="info-grid">
+            <div class="info-cell"><div class="label">Habitación</div><div class="value">Hasta 4 pax</div></div>
+            <div class="info-cell"><div class="label">Kids</div><div class="value">Mini club GRATIS, splash park, animación, piscina cubierta</div></div>
+            <div class="info-cell"><div class="label">Parking</div><div class="value">De pago (consultar)</div></div>
+            <div class="info-cell"><div class="label">Mascotas</div><div class="value">Admite · 12€/día</div></div>
+          </div>
+          <div class="actions">
+            <a class="btn-primary" href="https://www.hoteljaimei.com/" target="_blank">Web hotel</a>
+            <a class="btn-secondary" href="https://www.booking.com/hotel/es/jaime-i.es.html" target="_blank">Booking</a>
+            <a class="btn-tel" href="tel:+34977380200">Llamar</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- ROUTE B: MARBELLA → MADRID -->
+  <div class="route-section marbella">
+    <div class="route-title"><span class="badge mar">🏖 Ruta B</span><h2>Hotel parada Marbella → Madrid (semana 4)</h2></div>
+    <p class="intro">Saliendo de Marbella tras la 2ª semana de agosto. Estancia 3-4 noches. Presupuesto orientativo ~1.500-2.000€ TI 4 pax. Dos sub-zonas: Costa Tropical (mínima desviación) o Almería (mejor oferta pero +3h coche).</p>
+
     <div class="zone-header">
-      <h3>🌴 Costa Tropical (Granada) — 1h desde Marbella</h3>
+      <h3>🌴 Sub-zona — Costa Tropical (1h Marbella)</h3>
       <p>Mínima desviación. Hotel parada, luego A-44 directa norte a Madrid (~5h). Costa con calas y dark sand.</p>
     </div>
     <div class="cards">
 
-      <article class="card recomendado" data-zona="tropical">
+      <article class="card recomendado" data-ruta="marbella">
         <span class="recomendado-badge">★ TOP Costa Tropical</span>
         <div class="card-photo" style="background-image: url('img/best-alcazar-sm.jpg');">
           <div class="ruta-pill tropical">🌴 COSTA TROPICAL</div>
@@ -241,15 +411,15 @@
           <div class="analysis"><strong>Análisis honesto:</strong> hotel familiar puro, turismo español de clase media. Ambiente animado, mucho niño, no esperes silencio. Lo que destaca: <strong>el parque acuático + bolera + 3 piscinas mantiene a las niñas ocupadas 12h al día</strong>. Frustración: comida correcta pero monótona y bloques de apartamentos algo cansados. La playa de La Herradura es cala protegida ideal para María — pero a 15min andando, no 1ª línea.</div>
           <div class="reviews-block">
             <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Fuimos con dos niños de 5 y 8 y no quisieron irse. El parque acuático les voló la cabeza, mini-club con monitores muy majos."</div><div class="author">— Familia española · 2024</div></div>
-            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Las habitaciones del bloque apartamentos necesitan reforma. Buffet repetitivo a partir del 4º día. Playa a 15 min andando, no es 1ª línea."</div><div class="author">— Reseña verificada · 2024</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Las habitaciones del bloque apartamentos necesitan reforma. Buffet repetitivo a partir del 4º día."</div><div class="author">— Reseña verificada · 2024</div></div>
           </div>
           <div class="audience-block">
-            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familia que prioriza entretenimiento infantil sobre lujo, con TI sin reventar presupuesto</div>
-            <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Buscas hotel-resort de primera línea o gastronomía cuidada</div>
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familia que prioriza entretenimiento infantil sobre lujo</div>
+            <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Buscas hotel-resort 1ª línea o gastronomía cuidada</div>
           </div>
           <div class="info-grid">
             <div class="info-cell"><div class="label">Habitación</div><div class="value">Suite Familiar 35-40m², 2+2</div></div>
-            <div class="info-cell"><div class="label">Kids</div><div class="value">Cuna, trona, parque infantil, splash, mini-disco 21:00</div></div>
+            <div class="info-cell"><div class="label">Kids</div><div class="value">Cuna, trona, parque infantil, splash, mini-disco</div></div>
             <div class="info-cell"><div class="label">Parking</div><div class="value">GRATUITO</div></div>
             <div class="info-cell"><div class="label">Playa</div><div class="value">300m (cala protegida)</div></div>
           </div>
@@ -261,7 +431,7 @@
         </div>
       </article>
 
-      <article class="card recomendado" data-zona="tropical">
+      <article class="card recomendado" data-ruta="marbella">
         <span class="recomendado-badge">★ Mejor rated 8.6</span>
         <div class="card-photo" style="background-image: url('img/bahia-tropical-sm.jpg');">
           <div class="ruta-pill tropical">🌴 COSTA TROPICAL</div>
@@ -275,13 +445,13 @@
             <div class="price-cell"><div class="label">3 noches</div><div class="value">1.100-1.400€</div></div>
             <div class="price-cell"><div class="label">4 noches</div><div class="value">1.450-1.850€</div></div>
           </div>
-          <div class="analysis"><strong>Análisis honesto:</strong> el más reputado en Booking (8.6) y con las <strong>mejores habitaciones de los 4 candidatos Costa Tropical</strong>. Cliente español mayoritario, ambiente animado con buena onda. Destaca: las suites familiares + playa de El Pozuelo (más tranquila que San Cristóbal) + ratio precio/habitación. Frustración recurrente: <strong>el buffet no está a la altura del resto del hotel</strong> y hay quejas constantes de ruido. NO tiene parque acuático.</div>
+          <div class="analysis"><strong>Análisis honesto:</strong> el más reputado en Booking (8.6) y con las <strong>mejores habitaciones de los 4 candidatos Costa Tropical</strong>. Cliente español mayoritario, ambiente animado con buena onda. Destaca: las suites familiares + playa de El Pozuelo (más tranquila) + ratio precio/habitación. Frustración recurrente: <strong>el buffet no está a la altura del resto del hotel</strong>. NO tiene parque acuático.</div>
           <div class="reviews-block">
             <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Suites amplias perfectas con niños, playa de arena negra plana ideal para los peques, agua limpia. Personal muy cercano. Volveremos."</div><div class="author">— Familia verificada · 2024</div></div>
             <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"La comida sigue siendo el punto flojo. Mucho ruido por todo el hotel y poca supervisión en la piscina con tantísimos niños en agosto."</div><div class="author">— Reseña verificada · 2024</div></div>
           </div>
           <div class="audience-block">
-            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familia que prioriza calidad de habitación y entorno tranquilo</div>
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familia que prioriza calidad de habitación y tranquilidad</div>
             <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Buscas parque acuático o gastronomía cuidada</div>
           </div>
           <div class="info-grid">
@@ -298,26 +468,26 @@
         </div>
       </article>
 
-      <article class="card" data-zona="tropical">
+      <article class="card" data-ruta="marbella">
         <div class="card-photo" style="background-image: url('img/ibersol-almunecar-sm.jpg');">
           <div class="ruta-pill tropical">🌴 COSTA TROPICAL</div>
           <div class="photo-overlay"><h3>Ibersol Almuñécar Beach &amp; Spa</h3><div class="stars-loc">★★★★ TI Premium · Almuñécar centro</div></div>
         </div>
         <div class="highlight-strip tropical">PASEO MARÍTIMO · SE PUEDE CENAR FUERA</div>
         <div class="card-body">
-          <div class="rating-block"><div class="rating-score">8.2</div><div class="rating-meta"><div class="reviews">~2.800 reseñas Booking</div><div>Ubicación urbana muy valorada. TI premium real (cócteles, vinos).</div></div></div>
+          <div class="rating-block"><div class="rating-score">8.2</div><div class="rating-meta"><div class="reviews">~2.800 reseñas Booking</div><div>Ubicación urbana muy valorada. TI premium real.</div></div></div>
           <div class="row-meta"><span class="pill good">1ª línea + paseo</span><span class="pill good">TI Premium real</span><span class="pill tropical">Soft play cubierto</span><span class="pill">1h35 de Marbella</span></div>
           <div class="price-block">
             <div class="price-cell"><div class="label">3 noches</div><div class="value">1.250-1.550€</div></div>
             <div class="price-cell"><div class="label">4 noches</div><div class="value">1.600-1.950€</div></div>
           </div>
-          <div class="analysis"><strong>Análisis honesto:</strong> resort familiar urbano en pleno Almuñécar — combina hotel con salir al pueblo a cenar/pasear. Ambiente mixto: familias españolas + algo de británico. Destaca <strong>la ubicación + TI premium real</strong> (cócteles, vinos locales). Frustración: ocupación máxima en agosto = colas, dinámica de cobro por niños menos competitiva (2º niño 50%). Sunny Kids Club con monitores ES, soft play cubierto.</div>
+          <div class="analysis"><strong>Análisis honesto:</strong> resort familiar urbano en pleno Almuñécar — combina hotel con salir al pueblo a cenar/pasear. Destaca <strong>la ubicación + TI premium real</strong>. Frustración: ocupación máxima en agosto = colas, 2º niño paga 50%.</div>
           <div class="reviews-block">
             <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Ubicación inmejorable, sales del hotel y estás en el paseo. Sunny Kids Club con monitores en español, mi hija de 4 años se integró sin problema."</div><div class="author">— Familia verificada · 2025</div></div>
-            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"1er niño gratis pero 2º paga 50%. Cenas temáticas cortas en agosto pico (colas)."</div><div class="author">— Reseña verificada · 2025</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"1er niño gratis pero 2º paga 50%. Cenas temáticas cortas en agosto (colas)."</div><div class="author">— Reseña verificada · 2025</div></div>
           </div>
           <div class="audience-block">
-            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familia que quiere TI cómodo + poder salir a cenar fuera</div>
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familia que quiere TI + poder salir a cenar fuera</div>
             <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Buscas resort aislado tipo burbuja</div>
           </div>
           <div class="info-grid">
@@ -334,7 +504,7 @@
         </div>
       </article>
 
-      <article class="card warning" data-zona="tropical">
+      <article class="card warning" data-ruta="marbella">
         <div class="card-photo" style="background-image: url('img/playacalida-sm.jpg');">
           <div class="ruta-pill tropical">🌴 COSTA TROPICAL</div>
           <div class="photo-overlay"><h3>Playacálida Spa Hotel Luxury</h3><div class="stars-loc">★★★★ Superior · Almuñécar (Senator)</div></div>
@@ -347,13 +517,13 @@
             <div class="price-cell"><div class="label">3 noches</div><div class="value">1.700-2.200€</div><div class="nrf">Al límite</div></div>
             <div class="price-cell"><div class="label">4 noches</div><div class="value">2.200-2.800€</div><div class="nrf" style="color:var(--red)">Fuera presupuesto</div></div>
           </div>
-          <div class="analysis"><strong>Análisis honesto:</strong> el ÚNICO del análisis con <strong>segmentación de Kids Club por edades reales</strong> (Mini 3-6 + Junior 7-10 + Teen 11-14). Técnicamente el mejor fit para María (4) y Claudia (6) — irían a grupos distintos. Cliente medio-alto, mix español-francés-belga. Destaca instalaciones (5 piscinas + spa + river pool). Frustración: <strong>precio agosto desproporcionado + posible restricción de 5N mínimo</strong>.</div>
+          <div class="analysis"><strong>Análisis honesto:</strong> el ÚNICO con <strong>segmentación de Kids Club por edades reales</strong> (Mini 3-6 + Junior 7-10 + Teen). Técnicamente el mejor fit para María (4) y Claudia (6). Cliente medio-alto, mix español-francés-belga. Destaca instalaciones (5 piscinas + spa + river pool). Frustración: <strong>precio agosto desproporcionado + posible restricción de 5N</strong>.</div>
           <div class="reviews-block">
-            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Las mejores instalaciones de toda la Costa Tropical sin discusión. Kids clubs por edad funciona genial, mis hijos de 5 y 9 estaban en grupos distintos. River pool espectacular."</div><div class="author">— Familia verificada · 2025</div></div>
-            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Precio agosto desproporcionado y obligaron a mínimo 5 noches en TI. La habitación familiar se queda algo justa para 4."</div><div class="author">— Reseña verificada · 2025</div></div>
+            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Las mejores instalaciones de toda la Costa Tropical. Kids clubs por edad funciona genial. River pool espectacular."</div><div class="author">— Familia verificada · 2025</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Precio agosto desproporcionado y obligaron a mínimo 5 noches en TI."</div><div class="author">— Reseña verificada · 2025</div></div>
           </div>
           <div class="audience-block">
-            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Si estiramos techo a ~2.300€ y queremos lo mejor en Kids Club</div>
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Si estiramos techo ~2.300€ y queremos lo mejor</div>
             <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Quieres 3N exactas o presupuesto rígido</div>
           </div>
           <div class="info-grid">
@@ -371,16 +541,14 @@
       </article>
 
     </div>
-  </section>
 
-  <section>
     <div class="zone-header almeria">
-      <h3>☀️ Almería (Roquetas / Mojácar) — 3-4h desde Marbella</h3>
-      <p>Más rodeo (~3h coche extra ida+vuelta) pero mejor oferta TI y mejor rating. Luego A-92 hacia Madrid. Justificable solo si los hoteles compensan el desvío.</p>
+      <h3>☀️ Sub-zona — Almería (3-4h Marbella)</h3>
+      <p>Más rodeo pero mejor oferta TI y mejor rating. Luego A-92 hacia Madrid. Solo justificable si los hoteles compensan el desvío.</p>
     </div>
     <div class="cards">
 
-      <article class="card recomendado" data-zona="almeria">
+      <article class="card recomendado" data-ruta="marbella">
         <span class="recomendado-badge">★ TOP rating 8.8</span>
         <div class="card-photo" style="background-image: url('img/servigroup-marina-playa-sm.jpg');">
           <div class="ruta-pill almeria">☀️ ALMERÍA</div>
@@ -394,18 +562,18 @@
             <div class="price-cell"><div class="label">3 noches</div><div class="value">1.300-1.550€</div></div>
             <div class="price-cell"><div class="label">4 noches</div><div class="value">1.600-1.950€</div></div>
           </div>
-          <div class="analysis"><strong>Análisis honesto:</strong> hotel 4★ en 1ª línea de Mojácar con la clientela más fiel de los 8 — familias británicas/irlandesas que <strong>repiten cada año</strong>. Ambiente animado pero NO masificado. Destaca <strong>el equipo humano</strong> y el show del Rey León con participación infantil. Producto algo dated (sin tetera, gym pago) pero la nota 8.8 lo dice todo.</div>
+          <div class="analysis"><strong>Análisis honesto:</strong> hotel 4★ en 1ª línea de Mojácar con la clientela más fiel de los 8 — familias británicas/irlandesas que <strong>repiten cada año</strong>. Ambiente animado pero NO masificado. Destaca <strong>el equipo humano</strong> y el show del Rey León con participación infantil. Producto algo dated pero la nota 8.8 lo dice todo.</div>
           <div class="reviews-block">
-            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"We have been holidaying at the Marina Playa since 2007. Your restaurant staff are first class, especially Diego and George. Everything was perfect."</div><div class="author">— Rhona B., Reino Unido · nov 2025</div></div>
+            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"We have been holidaying at the Marina Playa since 2007. Your restaurant staff are first class, especially Diego and George. Everything was perfect."</div><div class="author">— Rhona B., UK · nov 2025</div></div>
             <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"The rooms are not the most modern. Tea and coffee making facilities would be truly welcome in the room."</div><div class="author">— Huésped verificado · 2024</div></div>
           </div>
           <div class="audience-block">
-            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familias con niños 4-10 que valoran trato cercano y previsibilidad</div>
+            <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familias con niños 4-10 que valoran trato cercano</div>
             <div class="audience-card evitar"><div class="title">✗ Evitar si</div>No quieres añadir ~3h coche por hotel</div>
           </div>
           <div class="info-grid">
             <div class="info-cell"><div class="label">Habitación</div><div class="value">Doble/Cuádruple vista mar</div></div>
-            <div class="info-cell"><div class="label">Kids</div><div class="value">Mini club, parque infantil, piscina infantil, show Rey León</div></div>
+            <div class="info-cell"><div class="label">Kids</div><div class="value">Mini club, parque infantil, show Rey León</div></div>
             <div class="info-cell"><div class="label">Parking</div><div class="value">De pago · 12€/día</div></div>
             <div class="info-cell"><div class="label">Mascotas</div><div class="value">No admite</div></div>
           </div>
@@ -417,7 +585,7 @@
         </div>
       </article>
 
-      <article class="card" data-zona="almeria">
+      <article class="card" data-ruta="marbella">
         <div class="card-photo" style="background-image: url('img/mediterranean-bay-sm.jpg');">
           <div class="ruta-pill almeria">☀️ ALMERÍA</div>
           <div class="photo-overlay"><h3>Globales Mediterranean Bay</h3><div class="stars-loc">★★★★ Todo Incluido Plus · Roquetas</div></div>
@@ -430,19 +598,19 @@
             <div class="price-cell"><div class="label">3 noches</div><div class="value">1.450-1.700€</div></div>
             <div class="price-cell"><div class="label">4 noches</div><div class="value">1.700-2.000€</div><div class="nrf">NRF -25%</div></div>
           </div>
-          <div class="analysis"><strong>Análisis honesto:</strong> resort tipo 'pueblo mediterráneo' con 367 habitaciones en módulos bajos. Ambiente animado pero <strong>más espacioso que la mayoría</strong>. Destaca la comida en buffet y la zona acuática (lago + piscina infantil temática). Frustración: <strong>cuello de botella en check-in/out</strong> y cargos no esperados. Es el hotel referencia conceptual.</div>
+          <div class="analysis"><strong>Análisis honesto:</strong> resort tipo 'pueblo mediterráneo' con 367 habitaciones en módulos bajos. Ambiente animado pero <strong>más espacioso que la mayoría</strong>. Destaca la comida en buffet y la zona acuática. Frustración: <strong>check-in/out lento</strong>. Es el hotel referencia conceptual.</div>
           <div class="reviews-block">
-            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Our stay was absolutely fantastic from start to finish. The food was a real highlight — great variety every day, fresh, tasty, and well presented."</div><div class="author">— Gavin, Reino Unido · abr 2026</div></div>
-            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Check in was diabolical. We waited around 1 hour 30 minutes just to get to reception. We had 2 extremely tired children with us."</div><div class="author">— Holly K., Reino Unido · abr 2026</div></div>
+            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"The food was a real highlight — great variety every day, fresh, tasty, and well presented."</div><div class="author">— Gavin, UK · abr 2026</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"Check in was diabolical. We waited around 1 hour 30 minutes just to get to reception."</div><div class="author">— Holly K., UK · abr 2026</div></div>
           </div>
           <div class="audience-block">
             <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familias que valoran espacio, comida y zona acuática infantil</div>
             <div class="audience-card evitar"><div class="title">✗ Evitar si</div>No quieres rodear ~3h por hotel</div>
           </div>
           <div class="info-grid">
-            <div class="info-cell"><div class="label">Habitación</div><div class="value">Doble / Junior Suite / Pool Room (35m² + piscina privada)</div></div>
+            <div class="info-cell"><div class="label">Habitación</div><div class="value">Doble / Pool Room (35m² + piscina privada)</div></div>
             <div class="info-cell"><div class="label">Kids</div><div class="value">Cuna gratis, club con monitores, parque acuático infantil</div></div>
-            <div class="info-cell"><div class="label">Parking</div><div class="value">Privado (consultar)</div></div>
+            <div class="info-cell"><div class="label">Parking</div><div class="value">Privado</div></div>
             <div class="info-cell"><div class="label">Mascotas</div><div class="value">No admite</div></div>
           </div>
           <div class="actions">
@@ -453,7 +621,7 @@
         </div>
       </article>
 
-      <article class="card" data-zona="almeria">
+      <article class="card" data-ruta="marbella">
         <div class="card-photo" style="background-image: url('img/playasol-sm.jpg');">
           <div class="ruta-pill almeria">☀️ ALMERÍA</div>
           <div class="photo-overlay"><h3>Playasol Aquapark Senator</h3><div class="stars-loc">★★★★ Todo Incluido · Roquetas</div></div>
@@ -466,7 +634,7 @@
             <div class="price-cell"><div class="label">3 noches</div><div class="value">1.200-1.500€</div></div>
             <div class="price-cell"><div class="label">4 noches</div><div class="value">1.500-1.700€</div><div class="nrf">NRF -35%</div></div>
           </div>
-          <div class="analysis"><strong>Análisis honesto:</strong> resort tipo aquapark para familias con niños 4-12. Ambiente <strong>masificado y ruidoso en pico</strong>. Destaca el parque acuático integrado y el equipo de animación. Frustración: <strong>edificio antiguo que pide reforma</strong> y guerra por hamacas. Vecino directo del Mediterranean Bay.</div>
+          <div class="analysis"><strong>Análisis honesto:</strong> resort tipo aquapark para familias con niños 4-12. Ambiente <strong>masificado y ruidoso en pico</strong>. Destaca el parque acuático integrado. Frustración: <strong>edificio antiguo que pide reforma</strong>. Vecino directo del Mediterranean Bay.</div>
           <div class="reviews-block">
             <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"The location and facilities are second to none in this area. The animation team is doing a great job for children and adults."</div><div class="author">— Eugenie, Alemania · jul 2023</div></div>
             <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"It was exceptionally noisy everywhere. The room was not the size stated. It needed renovating."</div><div class="author">— Emma, España · oct 2023</div></div>
@@ -477,7 +645,7 @@
           </div>
           <div class="info-grid">
             <div class="info-cell"><div class="label">Habitación</div><div class="value">Familiar + Comunicada (dos dobles)</div></div>
-            <div class="info-cell"><div class="label">Kids</div><div class="value">Cuna, mini club 4+, splash zone con toboganes</div></div>
+            <div class="info-cell"><div class="label">Kids</div><div class="value">Cuna, mini club 4+, splash con toboganes</div></div>
             <div class="info-cell"><div class="label">Parking</div><div class="value">De pago</div></div>
             <div class="info-cell"><div class="label">Mascotas</div><div class="value">Admite bajo consulta</div></div>
           </div>
@@ -489,7 +657,7 @@
         </div>
       </article>
 
-      <article class="card warning" data-zona="almeria">
+      <article class="card warning" data-ruta="marbella">
         <div class="card-photo" style="background-image: url('img/best-mojacar-sm.jpg');">
           <div class="ruta-pill almeria">☀️ ALMERÍA</div>
           <div class="photo-overlay"><h3>Best Mojácar</h3><div class="stars-loc">★★★★ Todo Incluido · Mojácar</div></div>
@@ -502,18 +670,18 @@
             <div class="price-cell"><div class="label">3 noches</div><div class="value">1.250-1.500€</div></div>
             <div class="price-cell"><div class="label">4 noches</div><div class="value">1.500-1.800€</div></div>
           </div>
-          <div class="analysis"><strong>Análisis honesto:</strong> hotel 4★ parte del complejo Best (comparte servicios con Best Oasis Tropical). Ambiente más tranquilo que Playasol. Destaca el splash park a 5min y el <strong>parking gratuito</strong>. <strong>Mini club desde 5 años — María (4) no entraría</strong>. Reapertura prevista verano 2026 — confirmar antes de reservar.</div>
+          <div class="analysis"><strong>Análisis honesto:</strong> hotel 4★ parte del complejo Best. Ambiente más tranquilo que Playasol. Destaca el splash park a 5min y el <strong>parking gratuito</strong>. <strong>Mini club desde 5 — María (4) no entraría</strong>. Reapertura prevista verano 2026 — confirmar.</div>
           <div class="reviews-block">
-            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Beautiful hotel and area."</div><div class="author">— James, Reino Unido · sep 2024</div></div>
-            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"The hotel is very run-down and old. Housekeeping is terrible, especially in the room."</div><div class="author">— J.I., España · sep 2025</div></div>
+            <div class="review positive"><div class="quote-label">✓ Lo bueno</div><div class="quote">"Beautiful hotel and area."</div><div class="author">— James, UK · sep 2024</div></div>
+            <div class="review critical"><div class="quote-label">— Lo malo</div><div class="quote">"The hotel is very run-down and old. Housekeeping is terrible."</div><div class="author">— J.I., España · sep 2025</div></div>
           </div>
           <div class="audience-block">
             <div class="audience-card ideal"><div class="title">✓ Ideal para</div>Familias con niños 5+ que priorizan precio + parking gratis</div>
-            <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Vas con niño 2-4 años (María no entra al mini club)</div>
+            <div class="audience-card evitar"><div class="title">✗ Evitar si</div>Vas con niño 2-4 (María no entra al mini club)</div>
           </div>
           <div class="info-grid">
             <div class="info-cell"><div class="label">Habitación</div><div class="value">Junior Suite (dos ambientes)</div></div>
-            <div class="info-cell"><div class="label">Kids</div><div class="value">Mini club +5 años · splash compartido</div></div>
+            <div class="info-cell"><div class="label">Kids</div><div class="value">Mini club +5 · splash compartido</div></div>
             <div class="info-cell"><div class="label">Parking</div><div class="value">GRATUITO</div></div>
             <div class="info-cell"><div class="label">Mascotas</div><div class="value">No admite</div></div>
           </div>
@@ -526,30 +694,24 @@
       </article>
 
     </div>
-  </section>
+  </div>
 
   <section class="reco">
-    <h2>Mi recomendación (ruta Marbella → Madrid)</h2>
-    <p><strong>La pregunta clave: ¿vale la pena rodear ~3h extra hasta Almería, o nos quedamos en Costa Tropical que apenas desvía?</strong></p>
+    <h2>Mi recomendación por ruta</h2>
 
-    <h3>🥇 Best Alcázar (La Herradura) — eficiencia + parque acuático</h3>
-    <p>1h25 desde Marbella, único Costa Tropical con <strong>parque acuático propio</strong>. 4N por <strong>1.500-1.850€</strong>. Cala protegida de La Herradura para María. Después, A-44 directa a Madrid (5h). El plan más limpio.</p>
+    <h3>🏔 Si vamos a Baqueira — Magic Sports (Oropesa)</h3>
+    <p><strong>Única 4★ con TI real en ruta norte 5N + María (4) gratis si reservamos antes del 25 jul</strong>. 2.376€ TI con el descuento niño = ~2.000€ neto. 2h30 desde Oliva, corte natural perfecto. Plan B precio: Gran Hotel Peñíscola PC por 1.619€ (sin TI pero certificado Children Friendly Excellence real).</p>
 
-    <h3>🥈 Bahía Tropical (Almuñécar) — mejor habitación + tranquilidad</h3>
-    <p>Rating 8.6 (el más alto en Costa Tropical), suites de 40m², playa El Pozuelo. <strong>4N 1.450-1.850€</strong>. Renuncia: sin parque acuático, buffet criticado.</p>
-
-    <h3>🥉 Servigroup Marina Playa (Mojácar) — si el rating justifica el rodeo</h3>
-    <p>Es el <strong>mejor rated del análisis completo (8.8)</strong>. PERO añade ~3h coche extra (8h ida+vuelta vs ~2h30 con Costa Tropical). <strong>4N 1.600-1.950€</strong>.</p>
-
-    <h3>Plan tope (~2.300€) — Playacálida</h3>
-    <p>El único con Kids Club <strong>segmentado por edad real</strong>. 5 piscinas + spa. Cuidado con posible mínimo 5N.</p>
+    <h3>🏖 Si vamos a Marbella → Madrid — Best Alcázar (La Herradura)</h3>
+    <p>1h25 desde Marbella, único Costa Tropical con <strong>parque acuático propio</strong>. 4N por <strong>1.500-1.850€</strong>. Plan más limpio (mínima desviación). Plan B mejor rating: Bahía Tropical 8.6 con suites de 40m². Plan C si justifica el rodeo: Servigroup Marina Playa (Mojácar) 8.8 — el mejor del análisis pero suma 3h coche.</p>
   </section>
 
   <section class="questions">
-    <h2>Tres preguntas para decidir</h2>
-    <div class="q"><span class="label">Pregunta 1 — Coche</span><strong>¿Cuánto coche extra por mejor hotel?</strong><br>Costa Tropical: 1h+5h = 6h coche total extra. Almería: 4h+5h = 9h total (3h más).</div>
-    <div class="q"><span class="label">Pregunta 2 — Duración</span><strong>¿3 noches o 4 noches?</strong><br>3N para descomprimir. 4N más relax, +300-450€.</div>
-    <div class="q"><span class="label">Pregunta 3 — Qué importa más</span><strong>Parque acuático (Best Alcázar) · Habitación + suite (Bahía Tropical) · Trato familiar 8.8 (Marina Playa Mojácar)?</strong></div>
+    <h2>Preguntas para decidir</h2>
+    <div class="q"><span class="label">Pregunta 0 — RUTA</span><strong>¿Baqueira o Marbella primero?</strong><br>Decide la ruta y el resto cae solo.</div>
+    <div class="q"><span class="label">Pregunta 1 — Si Baqueira</span><strong>¿Magic Sports (TI + María gratis) o Gran Hotel Peñíscola (PC, mejor precio)?</strong><br>Diferencia ~750€. Magic Sports tiene parque acuático + simuladores; Peñíscola tiene certificado Children Friendly real + playa 1ª línea.</div>
+    <div class="q"><span class="label">Pregunta 2 — Si Marbella</span><strong>¿Costa Tropical (1h coche) o Almería (4h coche)?</strong><br>Costa Tropical: Best Alcázar con parque acuático o Bahía Tropical con suites. Almería: Servigroup Marina Playa rating 8.8 pero +3h de coche.</div>
+    <div class="q"><span class="label">Pregunta 3 — Duración</span><strong>¿3 noches o 4 noches (solo Marbella→Madrid)?</strong><br>3N para descomprimir antes de Madrid. 4N más relax, +300-450€.</div>
   </section>
 
   <footer>Cuando me digas, llamo y reservo. <span class="heart">♥</span><br><small>Datos verificados mayo 2026 · precios orientativos · confirmar al reservar</small></footer>
@@ -564,12 +726,25 @@
       document.querySelectorAll(`[data-filter="${filter}"]`).forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('.card').forEach(card => {
-        if (value === 'all' || card.dataset.zona === value) {
+        if (value === 'all' || card.dataset.ruta === value) {
           card.classList.remove('hidden');
         } else {
           card.classList.add('hidden');
         }
       });
+      // Hide route sections when filter is set to a single route
+      const baqueiraSection = document.querySelector('.route-section.baqueira');
+      const marbellaSection = document.querySelector('.route-section.marbella');
+      if (value === 'norte') {
+        baqueiraSection.style.display = '';
+        marbellaSection.style.display = 'none';
+      } else if (value === 'marbella') {
+        baqueiraSection.style.display = 'none';
+        marbellaSection.style.display = '';
+      } else {
+        baqueiraSection.style.display = '';
+        marbellaSection.style.display = '';
+      }
     });
   });
 </script>
